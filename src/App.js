@@ -1,5 +1,7 @@
 import { Grid, Box } from '@mui/material';
 import React, { useState } from 'react';
+import LeftComponent from './Components/LeftComponent';
+import RightComponent from './Components/RightComponent';
 
 const Data = [
 	{ id: 1, Name: 'Shirt 1', Price: 100 },
@@ -15,81 +17,15 @@ const Data = [
 ];
 
 const App = () => {
-	const [data, setData] = useState([]);
-	console.log('data', data.Name);
+	const [selectedItem, setSelectedItem] = useState();
+	const handleItemClick = (item) => {
+		setSelectedItem(item);
+	};
 	return (
 		<>
 			<Grid style={{ padding: '80px' }} container>
-				<Grid item lg={2}>
-					<Box>
-						<Box
-							style={{
-								display: 'flex',
-								justifyContent: 'space-between',
-								border: '2px solid grey',
-								padding: '10px',
-								cursor: 'pointer',
-							}}>
-							<Box style={{ fontSize: '22px' }}>List Of Items</Box>
-							<Box>
-								<i class='fa-solid fa-caret-down'></i>
-							</Box>
-						</Box>
-						{Data.map((item, i) => {
-							return (
-								<Box
-									mt={1}
-									onClick={() => setData(item)}
-									style={{
-										padding: '4px',
-										border: '2px solid grey',
-										cursor: 'pointer',
-									}}>
-									<Box style={{ fontSize: '20px' }}>{item.Name}</Box>
-								</Box>
-							);
-						})}
-					</Box>
-				</Grid>
-				<Grid item lg={7}>
-					<Box
-						style={{
-							textAlign: 'center',
-							fontSize: '85px',
-							fontWeight: '400',
-							color: '#8A8A8A',
-						}}>
-						Card
-					</Box>
-					<Box
-						style={{
-							textAlign: 'center',
-							border: '3px solid #8A8A8A',
-							marginLeft: '10rem',
-							marginRight: '10rem',
-							padding: '20px 0px 80px 0px',
-						}}>
-						<Box
-							style={{
-								textAlign: 'center',
-								fontSize: '40px',
-								fontWeight: '500',
-								color: '#454545',
-							}}>
-							{data.Name}
-						</Box>
-						<Box
-							mt={1}
-							style={{ fontSize: '20px', fontWeight: '500', color: '#5C5C5C' }}>
-							price: Rs.{data.Price}
-						</Box>
-						<Box
-							mt={5}
-							style={{ fontSize: '30px', fontWeight: '500', color: '#454545' }}>
-							Item ID: {data.id}
-						</Box>
-					</Box>
-				</Grid>
+				<LeftComponent onItemClick={handleItemClick} />
+				<RightComponent selectedItem={selectedItem} />
 			</Grid>
 		</>
 	);
